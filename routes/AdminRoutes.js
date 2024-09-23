@@ -5,12 +5,15 @@ import BlogTagsController from "../controller/BlogTagsController.js"
 import BlogCategoryController from "../controller/BlogCategoryController.js"
 import BlogController from "../controller/BlogController.js"
 import { multipleProductUploads } from "./multerRoutesSetting.js"
+import NewsController from "../controller/NewsColntroller.js"
+import checkUserAuth from "../middlweware/admin-auth-middleware.js"
 
 const router = express.Router()
 
 
 router.post("/register", UserController.RegisterUser)
 router.post("/login", UserController.LoginUser)
+router.get("/get-user",checkUserAuth,UserController.GetUserProfile)
 
 
 router.get("/get-contact-us", ContactUsController.GetAllContactUs)
@@ -34,8 +37,16 @@ router.delete("/delete-blog-category/:id", BlogCategoryController.DeleteBlogCate
 router.get("/get-blog", BlogController.GetAllBlogs)
 router.post("/add-blog", multipleProductUploads, BlogController.AddBlog)
 router.get("/get-blog/:id", BlogController.GetBlogById)
-router.put("/edit-blog/:id",multipleProductUploads, BlogController.UpdateBlog)
+router.put("/edit-blog/:id", multipleProductUploads, BlogController.UpdateBlog)
 router.delete("/delete-blog/:id", BlogController.DeleteBlog)
+
+
+
+router.get("/all-news", NewsController.getAllNews)
+router.post("/add-news",multipleProductUploads, NewsController.Addnews)
+router.get("/get-news/:id", NewsController.getNewsById)
+router.put("/edit-news/:id",multipleProductUploads, NewsController.updateNews)
+router.delete("/delete-news/:id", NewsController.deleteNews)
 
 
 

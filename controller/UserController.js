@@ -54,6 +54,7 @@ class UserController {
                 return handleResponse(401, "Invalid credentials", {}, resp)
             }
 
+
             const token = jwt.sign(
                 {
                     userID: user._id,
@@ -75,7 +76,9 @@ class UserController {
 
     static GetUserProfile = async (req, resp) => {
         try {
-            const user = req.query;
+            const user = req.user;
+            console.log("user",user);
+            
 
             const userData = await User.findOne({ id: user.id })
             if (!userData) {

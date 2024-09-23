@@ -10,9 +10,15 @@ const checkUserAuth = async (req, res, next) => {
             // Extract token from header
             const token = authorization.split(" ")[1];
 
+
+
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-            const user = await User.findById(decoded.userID).select("-password");
+
+
+            const user = await User.findById({ _id: decoded.userID }).select("-password");
+
+
 
             if (!user) {
                 return handleResponse(404, "User not found", {}, res);
@@ -28,8 +34,10 @@ const checkUserAuth = async (req, res, next) => {
             next();
         } catch (error) {
             if (error.name === "TokenExpiredError") {
+                console.log("Token expired");
                 return handleResponse(401, "Token expired. Please login again.", {}, res);
             } else {
+                console.log("Error decoding token:", error);
                 return handleResponse(401, "Invalid or unauthorized token", {}, res);
             }
         }
