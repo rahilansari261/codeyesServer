@@ -48,7 +48,7 @@ class NewsController {
     static getNewsById = async (req, resp) => {
         try {
             const { id } = req.params;
-            const news = await News.findOne(id);
+            const news = await News.findOne({ id: id });
             if (!news) {
                 return handleResponse(404, "News not found", {}, resp);
             }
@@ -67,7 +67,7 @@ class NewsController {
 
             const base_url = `${req.protocol}://${req.get("host")}`;
 
-            const news = await News.findOne(id);
+            const news = await News.findOne({ id: id });
             if (!news) {
                 return handleResponse(404, "News not found", {}, resp);
             }
