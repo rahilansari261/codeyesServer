@@ -5,7 +5,7 @@ class ContactUsController {
     // Add new contact
     static AddContactUs = async (req, resp) => {
         try {
-            const { name, email, message } = req.body;
+            const { name, email, message, option } = req.body;
 
             if (!name || !email || !message) {
                 return handleResponse(400, "All fields are required", {}, resp);
