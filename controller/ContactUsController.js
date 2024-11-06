@@ -15,6 +15,7 @@ class ContactUsController {
                 name,
                 email,
                 message,
+                option
             });
 
             await newContactUs.save();

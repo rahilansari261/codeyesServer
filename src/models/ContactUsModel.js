@@ -14,6 +14,10 @@ const ContactUsSchema = mongoose.Schema(
             type: String,
             default: null
         },
+        option: {
+            type: String,
+            default: null
+        },
         email: {
             type: String,
             default: null
