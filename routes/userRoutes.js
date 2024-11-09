@@ -10,4 +10,6 @@ router.get("/get-blogs", BlogController.GetAllBlogs)
 router.get("/get-blog/:id", BlogController.GetBlogById)
 router.get("/get-news", NewsController.getAllNews)
 
+// router.get("/get-client-logo",)
+
 export default router

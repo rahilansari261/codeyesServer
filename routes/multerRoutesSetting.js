@@ -7,5 +7,10 @@ const multipleProductUploads = Productupdate.fields([
     { name: "banner_image" }
 ]);
 
+const testimonialUploads = fileUpload("public/blog/images");
+const testimonialImageUploads = testimonialUploads.fields([
+    { name: "image_url" }
+]);
 
-export { multipleProductUploads }
+
+export { multipleProductUploads, testimonialImageUploads }
