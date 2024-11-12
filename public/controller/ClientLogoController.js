@@ -7,7 +7,7 @@ class ClientLogoController {
       const { title } = req.body;
       const files = req.files;
 
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
 
       if (!title) {
         return handleResponse(404, "All fields are required", {}, resp);
@@ -63,7 +63,7 @@ class ClientLogoController {
       const { title } = req.body;
       const files = req.files;
 
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
 
       const news = await ClientLogo.findOne({ id: id });
       if (!news) {

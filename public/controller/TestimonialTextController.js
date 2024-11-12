@@ -5,7 +5,7 @@ class TestimonialTextController {
   // Add a new blog
   static AddTestimonialText = async (req, resp) => {
     try {
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
       const { name, description } = req.body;
 
       const image = req.files;
@@ -82,7 +82,7 @@ class TestimonialTextController {
       blog.description = description;
 
       if (image && image.banner_image) {
-        blog.image_url = `${req.protocol}://${req.get("host")}/${image.banner_image[0].path.replace(/\\/g, "/")}`;
+        blog.image_url = `https://everythinge.nexprism.in//${image.banner_image[0].path.replace(/\\/g, "/")}`;
       }
 
       await blog.save();

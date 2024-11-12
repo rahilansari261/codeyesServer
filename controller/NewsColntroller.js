@@ -8,7 +8,7 @@ class NewsController {
       const { title, category, content } = req.body;
       const files = req.files;
 
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
 
       if (!title || !category || !content) {
         return handleResponse(404, "All fields are required", {}, resp);
@@ -66,7 +66,7 @@ class NewsController {
       const { title, category, content } = req.body;
       const files = req.files;
 
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
 
       const news = await News.findOne({ id: id });
       if (!news) {

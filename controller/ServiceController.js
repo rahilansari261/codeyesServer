@@ -5,6 +5,9 @@ class ServiceController {
   static addService = async (req, resp) => {
     try {
       const { service, organizationId, title } = req.body;
+      // const files = req.files;
+
+      // const base_url = `https://everythinge.nexprism.in/`;
 
       if (!service) {
         return handleResponse(404, "All fields are required", {}, resp);
@@ -15,6 +18,11 @@ class ServiceController {
         title,
         organizationId: organizationId,
       });
+
+
+      // if (files && files.banner_image) {
+      //   newNews.banner_image = `${base_url}/${image.banner_image[0].path.replace(/\\/g, "/")}`;
+      // }
 
       await newNews.save();
       return handleResponse(201, "Service created successfully", newNews, resp);
@@ -53,12 +61,21 @@ class ServiceController {
       const { id } = req.params;
       const { service, title } = req.body;
 
+      // const files = req.files;
+
+      // const base_url = `https://everythinge.nexprism.in/`;
+
       const news = await Service.findOne({ id: id });
       if (!news) {
         return handleResponse(404, "News not found", {}, resp);
       }
       news.title = title || news.title
       news.service = service || news.service;
+
+
+      // if (files && files.banner_image) {
+      //   newNews.banner_image = `${base_url}/${image.banner_image[0].path.replace(/\\/g, "/")}`;
+      // }
 
       await news.save();
       return handleResponse(200, "Service updated successfully", news, resp);

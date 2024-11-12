@@ -6,7 +6,7 @@ class PortfolioController {
   // Add a new blog
   static AddPortfolio = async (req, resp) => {
     try {
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
       const { title, tags, category, content, sub_title, client } = req.body;
 
       const image = req.files;
@@ -102,7 +102,7 @@ class PortfolioController {
       blog.client = client;
 
       if (image && image.banner_image) {
-        blog.banner_image = `${req.protocol}://${req.get("host")}/${image.banner_image[0].path.replace(/\\/g, "/")}`;
+        blog.banner_image = `https://everythinge.nexprism.in//${image.banner_image[0].path.replace(/\\/g, "/")}`;
       }
 
       await blog.save();

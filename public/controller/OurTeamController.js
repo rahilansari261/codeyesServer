@@ -5,7 +5,7 @@ class OurTeamController {
   // Add a new blog
   static AddOurTeam = async (req, resp) => {
     try {
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
       const { name, position, twitter_link, facebook_link, linkedin_link, instagram_link } = req.body;
 
       const image = req.files;
@@ -90,7 +90,7 @@ class OurTeamController {
       blog.instagram_link = instagram_link;
 
       if (image && image.banner_image) {
-        blog.image_url = `${req.protocol}://${req.get("host")}/${image.banner_image[0].path.replace(/\\/g, "/")}`;
+        blog.image_url = `https://everythinge.nexprism.in//${image.banner_image[0].path.replace(/\\/g, "/")}`;
       }
 
       await blog.save();

@@ -13,11 +13,6 @@ const ServiceModal = mongoose.Schema(
       type: String,
       required: true,
     },
-    // tags: {
-    //     type: Array,
-    //     default: null,
-    // },
-
     deleted_at: {
       type: Date,
       default: null,

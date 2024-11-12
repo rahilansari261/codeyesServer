@@ -7,7 +7,7 @@ class PortfolioController {
   // Add a new blog
   static AddPortfolio = async (req, resp) => {
     try {
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
       const { title, tags, category, content, sub_title, client, organizationId } = req.body;
 
       const images = req.files; // Expecting `req.files` to contain an array of images
@@ -87,7 +87,7 @@ class PortfolioController {
       const { id } = req.params;
       const { title, tags, category, content, client, sub_title } = req.body;
       const images = req.files;
-      const base_url = `${req.protocol}://${req.get("host")}`;
+      const base_url = `https://everythinge.nexprism.in/`;
 
       if (!title || !category || !content) {
         return handleResponse(400, "All required fields must be filled", {}, resp);
