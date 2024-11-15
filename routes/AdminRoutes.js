@@ -4,7 +4,7 @@ import ContactUsController from "../controller/ContactUsController.js";
 import BlogTagsController from "../controller/BlogTagsController.js";
 import BlogCategoryController from "../controller/BlogCategoryController.js";
 import BlogController from "../controller/BlogController.js";
-import { multipleProductUploads, testimonialImageUploads } from "./multerRoutesSetting.js";
+import { multiplePortfolioUploads, multipleProductUploads, testimonialImageUploads } from "./multerRoutesSetting.js";
 import NewsController from "../controller/NewsColntroller.js";
 import checkUserAuth from "../middlweware/admin-auth-middleware.js";
 import ServiceController from "../controller/ServiceController.js";
@@ -23,7 +23,7 @@ router.get("/get-user", checkUserAuth, UserController.GetUserProfile);
 
 router.get("/get-all-contact-us", ContactUsController.GetAllContactUs);
 router.get("/get-contact-us/:id", ContactUsController.GetContactUsById);
-router.post("/add-contact-us", ContactUsController.AddContactUs)
+router.post("/add-contact-us", ContactUsController.AddContactUs);
 
 router.post("/add-blog-tag", BlogTagsController.AddBlogTagsController);
 router.get("/get-blog-tag", BlogTagsController.GetAllBlogTagsController);
@@ -44,6 +44,9 @@ router.post("/add-blog", multipleProductUploads, BlogController.AddBlog);
 router.get("/get-blog/:id", BlogController.GetBlogById);
 router.put("/edit-blog/:id", multipleProductUploads, BlogController.UpdateBlog);
 router.delete("/delete-blog/:id", BlogController.DeleteBlog);
+
+router.post("/blogs/:id/comments", BlogController.addComment);
+router.post("/blogs/:id/comments/:commentId/replies", BlogController.addReply);
 
 router.get("/all-news", NewsController.getAllNews);
 router.post("/add-news", multipleProductUploads, NewsController.Addnews);
@@ -70,9 +73,9 @@ router.put("/edit-service/:id", ServiceController.updateService);
 router.delete("/delete-service/:id", ServiceController.deleteService);
 
 router.get("/all-portfolio", PortfolioController.GetAllPortfolios);
-router.post("/add-portfolio", multipleProductUploads, PortfolioController.AddPortfolio);
+router.post("/add-portfolio", multiplePortfolioUploads, PortfolioController.AddPortfolio);
 router.get("/get-portfolio/:id", PortfolioController.GetPortfolioById);
-router.put("/edit-portfolio/:id", multipleProductUploads, PortfolioController.UpdatePortfolio);
+router.put("/edit-portfolio/:id", multiplePortfolioUploads, PortfolioController.UpdatePortfolio);
 router.delete("/delete-portfolio/:id", PortfolioController.DeletePortfolio);
 
 router.get("/all-testimonial-video", TestimonialVideoController.getAllTestimonialVideos);

@@ -157,6 +157,40 @@ class BlogController {
       return handleResponse(500, err.message, {}, resp);
     }
   };
+
+  static addComment = async (req, res) => {
+    const { id } = req.params;
+    const { user, content } = req.body;
+
+    try {
+      const blog = await Blog.findById(id);
+      if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+      blog.comments.push({ user, content });
+      await blog.save();
+      res.status(200).json(blog);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+  static addReply = async (req, res) => {
+    const { id, commentId } = req.params;
+    const { user, content } = req.body;
+
+    try {
+      const blog = await Blog.findById(id);
+      if (!blog) return res.status(404).json({ message: "Blog not found" });
+
+      const comment = blog.comments.id(commentId);
+      if (!comment) return res.status(404).json({ message: "Comment not found" });
+
+      comment.replies.push({ user, content });
+      await blog.save();
+      res.status(200).json(blog);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 }
 
 export default BlogController;

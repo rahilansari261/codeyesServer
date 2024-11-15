@@ -2,6 +2,38 @@ import mongoose from "mongoose";
 import moment from "moment";
 import SequenceModel from "./Sequence.js";
 
+const CommentSchema = mongoose.Schema(
+  {
+    user: {
+      type: String, // Store user ID or name
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    replies: [
+      {
+        user: {
+          type: String, // Store user ID or name
+          required: true,
+        },
+        content: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+  },
+);
 const BlogSchema = mongoose.Schema(
   {
     id: Number,
@@ -38,6 +70,7 @@ const BlogSchema = mongoose.Schema(
       enum: ["everything_globel", "codeyes_media", "codeyes_infotech"], // Define allowed values here
       default: "everything_globel", // Set default value
     },
+    comments: [CommentSchema], // Embedding comments schema
   },
   { timestamps: {}, toJSON: { getters: true }, toObject: { getters: true } }
 );

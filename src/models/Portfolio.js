@@ -21,6 +21,12 @@ const PortfolioSchema = mongoose.Schema(
       type: Array,
       required: true,
     },
+    pictures: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     tags: {
       type: Array,
       default: null,

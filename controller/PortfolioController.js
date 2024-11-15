@@ -2,21 +2,16 @@ import handleResponse from "../config/http-response.js";
 import BlogCategory from "../src/models/BlogCategories.js";
 import Portfolio from "../src/models/Portfolio.js";
 
-
 class PortfolioController {
   // Add a new blog
   static AddPortfolio = async (req, resp) => {
     try {
-      const base_url = `https://everythinge.nexprism.in/`;
       const { title, tags, category, content, sub_title, client, organizationId } = req.body;
-
-      const images = req.files; // Expecting `req.files` to contain an array of images
-      console.log("images", images);
 
       if (!title || !category || !content || !client || !sub_title) {
         return handleResponse(400, "All required fields must be filled", {}, resp);
       }
-
+      console.log("req.files", req.files);
       const newPortfolio = new Portfolio({
         title,
         tags: tags || [],
@@ -25,11 +20,9 @@ class PortfolioController {
         category,
         content,
         organizationId,
+        banner_image: req.files.banner_image[0].filename,
+        pictures: req.files.pictures.map((img) => img.filename),
       });
-
-      if (images && images.banner_image) {
-        newPortfolio.banner_images = images.banner_image.map(img => `${base_url}/${img.path.replace(/\\/g, "/")}`);
-      }
 
       console.log("newPortfolio", newPortfolio);
 
@@ -41,7 +34,6 @@ class PortfolioController {
       return handleResponse(500, err.message, {}, resp);
     }
   };
-
 
   // Get all blogs
   static GetAllPortfolios = async (req, resp) => {
@@ -107,7 +99,10 @@ class PortfolioController {
 
       // Update banner images if new images are provided
       if (images && images.banner_image) {
-        portfolio.banner_image = images.banner_image.map(img => `${base_url}/${img.path.replace(/\\/g, "/")}`);
+        portfolio.banner_image = images.banner_image[0].filename;
+      }
+      if (images && images.pictures) {
+        portfolio.pictures = images.pictures.map((img) => img.filename);
       }
 
       await portfolio.save();
@@ -118,7 +113,6 @@ class PortfolioController {
       return handleResponse(500, err.message, {}, resp);
     }
   };
-
 
   // Soft delete a blog (set deleted_at)
   static DeletePortfolio = async (req, resp) => {
