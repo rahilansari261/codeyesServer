@@ -101,5 +101,7 @@ router.post("/add-footer-email", FooterEmailController.addFooterEmail);
 router.get("/get-footer-email/:id", FooterEmailController.getFooterEmailById);
 router.put("/edit-footer-email/:id", FooterEmailController.updateFooterEmail);
 router.delete("/delete-footer-email/:id", FooterEmailController.deleteFooterEmail);
-
+router.get("/hello/rahil", (req, res) => {
+    res.send("Hello Rahil");
+});
 export default router;
