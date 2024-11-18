@@ -2,38 +2,50 @@ import mongoose from "mongoose";
 import moment from "moment";
 import SequenceModel from "./Sequence.js";
 
-const CommentSchema = mongoose.Schema(
-  {
-    user: {
-      type: String, // Store user ID or name
-      required: true,
-    },
-    content: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    replies: [
-      {
-        user: {
-          type: String, // Store user ID or name
-          required: true,
-        },
-        content: {
-          type: String,
-          required: true,
-        },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-    ],
+const CommentSchema = mongoose.Schema({
+  user: {
+    type: String, // Store user ID or name
+    required: true,
   },
-);
+  email: {
+    type: String,
+    required: true,
+  },
+  website: {
+    type: String,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  replies: [
+    {
+      user: {
+        type: String, // Store user ID or name
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      website: {
+        type: String,
+      },
+      content: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+});
 const BlogSchema = mongoose.Schema(
   {
     id: Number,

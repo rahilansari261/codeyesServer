@@ -160,31 +160,32 @@ class BlogController {
 
   static addComment = async (req, res) => {
     const { id } = req.params;
-    const { user, content } = req.body;
+    // const { user, content, email,  } = req.body;
 
     try {
-      const blog = await Blog.findById(id);
+      const blog = await Blog.findOne({id: id});
       if (!blog) return res.status(404).json({ message: "Blog not found" });
 
-      blog.comments.push({ user, content });
+      blog.comments.push(req.body);
       await blog.save();
-      res.status(200).json(blog);
+      return handleResponse(200, "comment created successfully", blog, res);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   };
   static addReply = async (req, res) => {
     const { id, commentId } = req.params;
-    const { user, content } = req.body;
+    // const { user, content } = req.body;
 
     try {
-      const blog = await Blog.findById(id);
+      // const blog = await Blog.findById(id);
+      const blog = await Blog.findOne({id: id});
       if (!blog) return res.status(404).json({ message: "Blog not found" });
 
       const comment = blog.comments.id(commentId);
       if (!comment) return res.status(404).json({ message: "Comment not found" });
 
-      comment.replies.push({ user, content });
+      comment.replies.push(req.body);
       await blog.save();
       res.status(200).json(blog);
     } catch (error) {
