@@ -41,7 +41,7 @@ const OurTeamModal = mongoose.Schema(
     organizationId: {
       type: String,
       enum: ["everything_globel", "codeyes_media", "codeyes_infotech"], // Define allowed values here
-      default: "everything_globel", // Set default value
+      // default: "everything_globel", // Set default value
     },
   },
   { timestamps: {}, toJSON: { getters: true }, toObject: { getters: true } }

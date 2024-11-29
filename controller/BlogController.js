@@ -7,13 +7,36 @@ class BlogController {
   static AddBlog = async (req, resp) => {
     try {
       const base_url = `https://everythinge.nexprism.in/`;
-      const { title, tags, category, content } = req.body;
+      const {
+        title,
+        tags,
+        category,
+        content,
+        authorName,
+        authorRole,
+        authorProfile,
+        authorDescription,
+      } = req.body;
+      console.log(req.body);
 
       const image = req.files;
       console.log("image", image);
 
-      if (!title || !category || !content) {
-        return handleResponse(400, "All required fields must be filled", {}, resp);
+      if (
+        !title ||
+        !category ||
+        !content ||
+        !authorName ||
+        !authorRole ||
+        !authorDescription ||
+        !authorProfile
+      ) {
+        return handleResponse(
+          400,
+          "All required fields must be filled",
+          {},
+          resp
+        );
       }
 
       const newBlog = new Blog({
@@ -23,10 +46,17 @@ class BlogController {
         category,
         content,
         organizationId: req.query.organizationId,
+        authorName,
+        authorRole,
+        authorProfile,
+        authorDescription,
       });
 
       if (image && image.banner_image) {
-        newBlog.banner_image = `${base_url}/${image.banner_image[0].path.replace(/\\/g, "/")}`;
+        newBlog.banner_image = `${base_url}/${image.banner_image[0].path.replace(
+          /\\/g,
+          "/"
+        )}`;
       }
 
       await newBlog.save();
@@ -41,7 +71,12 @@ class BlogController {
   // Get all blogs
   static GetAllBlogs = async (req, resp) => {
     try {
-      const blogs = await Blog.find({ deleted_at: null, organizationId: req.query.organizationId }).lean().sort({ createdAt: -1 });
+      const blogs = await Blog.find({
+        deleted_at: null,
+        organizationId: req.query.organizationId,
+      })
+        .lean()
+        .sort({ createdAt: -1 });
 
       for (const key of blogs) {
         if (key.category) {
@@ -57,7 +92,13 @@ class BlogController {
 
   static GetAllHotBlogs = async (req, resp) => {
     try {
-      const blogs = await Blog.find({ deleted_at: null, organizationId: req.query.organizationId, blogType: "hot" }).lean().sort({ createdAt: -1 });
+      const blogs = await Blog.find({
+        deleted_at: null,
+        organizationId: req.query.organizationId,
+        blogType: "hot",
+      })
+        .lean()
+        .sort({ createdAt: -1 });
 
       for (const key of blogs) {
         if (key.category) {
@@ -73,7 +114,13 @@ class BlogController {
 
   static GetAllFamousBlogs = async (req, resp) => {
     try {
-      const blogs = await Blog.find({ deleted_at: null, organizationId: req.query.organizationId, blogType: "famous" }).lean().sort({ createdAt: -1 });
+      const blogs = await Blog.find({
+        deleted_at: null,
+        organizationId: req.query.organizationId,
+        blogType: "famous",
+      })
+        .lean()
+        .sort({ createdAt: -1 });
 
       for (const key of blogs) {
         if (key.category) {
@@ -116,7 +163,12 @@ class BlogController {
       const image = req.files;
 
       if (!title || !category || !content) {
-        return handleResponse(400, "All required fields must be filled", {}, resp);
+        return handleResponse(
+          400,
+          "All required fields must be filled",
+          {},
+          resp
+        );
       }
 
       let blog = await Blog.findOne({ id: id });
@@ -130,7 +182,10 @@ class BlogController {
       blog.content = content;
 
       if (image && image.banner_image) {
-        blog.banner_image = `https://everythinge.nexprism.in//${image.banner_image[0].path.replace(/\\/g, "/")}`;
+        blog.banner_image = `https://everythinge.nexprism.in//${image.banner_image[0].path.replace(
+          /\\/g,
+          "/"
+        )}`;
       }
 
       await blog.save();
@@ -146,13 +201,22 @@ class BlogController {
     try {
       const { id } = req.params;
 
-      const deletedBlog = await Blog.findOneAndUpdate({ id: id }, { deleted_at: new Date() }, { new: true });
+      const deletedBlog = await Blog.findOneAndUpdate(
+        { id: id },
+        { deleted_at: new Date() },
+        { new: true }
+      );
 
       if (!deletedBlog) {
         return handleResponse(404, "Blog not found", {}, resp);
       }
 
-      return handleResponse(200, "Blog deleted successfully", deletedBlog, resp);
+      return handleResponse(
+        200,
+        "Blog deleted successfully",
+        deletedBlog,
+        resp
+      );
     } catch (err) {
       return handleResponse(500, err.message, {}, resp);
     }
@@ -163,7 +227,7 @@ class BlogController {
     // const { user, content, email,  } = req.body;
 
     try {
-      const blog = await Blog.findOne({id: id});
+      const blog = await Blog.findOne({ id: id });
       if (!blog) return res.status(404).json({ message: "Blog not found" });
 
       blog.comments.push(req.body);
@@ -179,11 +243,12 @@ class BlogController {
 
     try {
       // const blog = await Blog.findById(id);
-      const blog = await Blog.findOne({id: id});
+      const blog = await Blog.findOne({ id: id });
       if (!blog) return res.status(404).json({ message: "Blog not found" });
 
       const comment = blog.comments.id(commentId);
-      if (!comment) return res.status(404).json({ message: "Comment not found" });
+      if (!comment)
+        return res.status(404).json({ message: "Comment not found" });
 
       comment.replies.push(req.body);
       await blog.save();

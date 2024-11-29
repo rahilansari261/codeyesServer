@@ -7,7 +7,7 @@ class ContactUsController {
     try {
       const { name, email, message, option } = req.body;
 
-      if (!name || !email || !message) {
+      if (!name || !email || !message || !option) {
         return handleResponse(400, "All fields are required", {}, resp);
       }
 
@@ -21,7 +21,12 @@ class ContactUsController {
 
       await newContactUs.save();
 
-      return handleResponse(201, "Contact Us added successfully", newContactUs, resp);
+      return handleResponse(
+        201,
+        "Contact Us added successfully",
+        newContactUs,
+        resp
+      );
     } catch (err) {
       return handleResponse(500, err.message, {}, resp);
     }
@@ -32,7 +37,12 @@ class ContactUsController {
     const organizationId = req.query.organizationId;
     try {
       const contacts = await ContactUs.find({ organizationId: organizationId });
-      return handleResponse(200, "Contact Us records fetched successfully", contacts, resp);
+      return handleResponse(
+        200,
+        "Contact Us records fetched successfully",
+        contacts,
+        resp
+      );
     } catch (err) {
       return handleResponse(500, err.message, {}, resp);
     }
@@ -49,7 +59,37 @@ class ContactUsController {
         return handleResponse(404, "Contact Us record not found", {}, resp);
       }
 
-      return handleResponse(200, "Contact Us record fetched successfully", contact, resp);
+      return handleResponse(
+        200,
+        "Contact Us record fetched successfully",
+        contact,
+        resp
+      );
+    } catch (err) {
+      return handleResponse(500, err.message, {}, resp);
+    }
+  };
+
+  // Delete contact by ID 00
+  static DeleteContactUsById = async (req, resp) => {
+    try {
+      const { id } = req.params;
+      // console.log(id);
+      // console.log("API hitted");
+
+      const contact = await ContactUs.findByIdAndDelete({ _id: id });
+      // console.log(contact);
+
+      if (!contact) {
+        return handleResponse(404, "Contact Us record not found", {}, resp);
+      }
+
+      return handleResponse(
+        200,
+        "Contact Us record deleted successfully",
+        contact,
+        resp
+      );
     } catch (err) {
       return handleResponse(500, err.message, {}, resp);
     }

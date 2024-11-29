@@ -21,7 +21,7 @@ const HomeLogoModal = mongoose.Schema(
     organizationId: {
       type: String,
       enum: ["everything_globel", "codeyes_media", "codeyes_infotech"],
-      default: "everything_globel",
+      // default: "everything_globel",
     },
   },
   { timestamps: {}, toJSON: { getters: true }, toObject: { getters: true } }

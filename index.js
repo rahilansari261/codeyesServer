@@ -23,6 +23,9 @@ app.use(cors());
 
 app.use("/api/admin", AdminRoutes);
 app.use("/api/user", UserRoutes);
+app.use("/",(req,res)=>{
+    res.send("Welcome")
+})
 
 app.use("", express.static(path.join(__dirname, "")));
 

@@ -80,9 +80,25 @@ const BlogSchema = mongoose.Schema(
     organizationId: {
       type: String,
       enum: ["everything_globel", "codeyes_media", "codeyes_infotech"], // Define allowed values here
-      default: "everything_globel", // Set default value
+      // default: "everything_globel", // Set default value
     },
     comments: [CommentSchema], // Embedding comments schema
+    authorName: {
+      type: String,
+      required: true,
+    },
+    authorRole: {
+      type: String,
+      required: true,
+    },
+    authorProfile: {
+      type: String,
+      required: true,
+    },
+    authorDescription: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: {}, toJSON: { getters: true }, toObject: { getters: true } }
 );
@@ -102,7 +118,11 @@ BlogSchema.pre("save", async function (next) {
 });
 
 async function getNextSequenceValue(modelName) {
-  let sequence = await SequenceModel.findOneAndUpdate({ modelName: modelName }, { $inc: { sequenceValue: 1 } }, { upsert: true, new: true });
+  let sequence = await SequenceModel.findOneAndUpdate(
+    { modelName: modelName },
+    { $inc: { sequenceValue: 1 } },
+    { upsert: true, new: true }
+  );
   return sequence.sequenceValue;
 }
 
