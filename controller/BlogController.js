@@ -6,7 +6,7 @@ class BlogController {
   // Add a new blog
   static AddBlog = async (req, resp) => {
     try {
-      const base_url = `https://codeyes-server.vercel.app/`;
+      const base_url = `https://everythinge.nexprism.in/`;
       const {
         title,
         tags,
@@ -15,7 +15,6 @@ class BlogController {
         authorName,
         authorRole,
         authorDescription,
-        
       } = req.body;
       console.log(req.body);
 
@@ -28,7 +27,7 @@ class BlogController {
         !content ||
         !authorName ||
         !authorRole ||
-        !authorDescription 
+        !authorDescription
       ) {
         return handleResponse(
           400,
@@ -48,7 +47,6 @@ class BlogController {
         authorName,
         authorRole,
         authorDescription,
-        
       });
 
       if (image && image.banner_image) {
