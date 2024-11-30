@@ -6,7 +6,7 @@ class BlogController {
   // Add a new blog
   static AddBlog = async (req, resp) => {
     try {
-      const base_url = `http://localhost:8000/`;
+      const base_url = `https://codeyes-server.vercel.app/`;
       const {
         title,
         tags,
