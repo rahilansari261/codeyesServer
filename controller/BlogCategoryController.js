@@ -6,7 +6,7 @@ class BlogCategoryController {
   static AddBlogCategoryController = async (req, resp) => {
     try {
       const { name, description } = req.body;
-
+console.log(req.query.organizationId)
       if (!name) {
         return handleResponse(400, "Blog category name is required", {}, resp);
       }

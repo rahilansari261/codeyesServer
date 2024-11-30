@@ -99,6 +99,7 @@ const BlogSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    
   },
   { timestamps: {}, toJSON: { getters: true }, toObject: { getters: true } }
 );

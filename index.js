@@ -23,7 +23,7 @@ app.use(cors());
 
 app.use("/api/admin", AdminRoutes);
 app.use("/api/user", UserRoutes);
-app.use("/",(req,res)=>{
+app.get("/",(req,res)=>{
     res.send("Welcome")
 })
 

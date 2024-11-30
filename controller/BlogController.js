@@ -6,7 +6,7 @@ class BlogController {
   // Add a new blog
   static AddBlog = async (req, resp) => {
     try {
-      const base_url = `https://everythinge.nexprism.in/`;
+      const base_url = `http://localhost:8000/`;
       const {
         title,
         tags,
@@ -14,8 +14,8 @@ class BlogController {
         content,
         authorName,
         authorRole,
-        authorProfile,
         authorDescription,
+        
       } = req.body;
       console.log(req.body);
 
@@ -28,8 +28,7 @@ class BlogController {
         !content ||
         !authorName ||
         !authorRole ||
-        !authorDescription ||
-        !authorProfile
+        !authorDescription 
       ) {
         return handleResponse(
           400,
@@ -48,12 +47,18 @@ class BlogController {
         organizationId: req.query.organizationId,
         authorName,
         authorRole,
-        authorProfile,
         authorDescription,
+        
       });
 
       if (image && image.banner_image) {
         newBlog.banner_image = `${base_url}/${image.banner_image[0].path.replace(
+          /\\/g,
+          "/"
+        )}`;
+      }
+      if (image && image.authorProfile) {
+        newBlog.authorProfile = `${base_url}/${image.authorProfile[0].path.replace(
           /\\/g,
           "/"
         )}`;
