@@ -237,6 +237,7 @@ class BlogController {
       await blog.save();
       return handleResponse(200, "comment created successfully", blog, res);
     } catch (error) {
+      console.log("error", error);
       res.status(500).json({ message: error.message });
     }
   };

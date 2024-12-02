@@ -5,18 +5,18 @@ import SequenceModel from "./Sequence.js";
 const CommentSchema = mongoose.Schema({
   user: {
     type: String, // Store user ID or name
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
   },
   website: {
     type: String,
   },
   content: {
     type: String,
-    required: true,
+    // required: true,
   },
   createdAt: {
     type: Date,
@@ -26,18 +26,18 @@ const CommentSchema = mongoose.Schema({
     {
       user: {
         type: String, // Store user ID or name
-        required: true,
+        // required: true,
       },
       email: {
         type: String,
-        required: true,
+        // required: true,
       },
       website: {
         type: String,
       },
       content: {
         type: String,
-        required: true,
+        // required: true,
       },
       createdAt: {
         type: Date,
@@ -51,11 +51,11 @@ const BlogSchema = mongoose.Schema(
     id: Number,
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     banner_image: {
       type: String,
-      required: true,
+      // required: true,
     },
     tags: {
       type: Array,
@@ -63,11 +63,11 @@ const BlogSchema = mongoose.Schema(
     },
     category: {
       type: Number,
-      required: true,
+      // required: true,
     },
     content: {
       type: String,
-      required: true,
+      // required: true,
     },
     deleted_at: {
       type: Date,
@@ -85,19 +85,19 @@ const BlogSchema = mongoose.Schema(
     comments: [CommentSchema], // Embedding comments schema
     authorName: {
       type: String,
-      required: true,
+      // required: true,
     },
     authorRole: {
       type: String,
-      required: true,
+      // required: true,
     },
     authorProfile: {
       type: String,
-      required: true,
+      // required: true,
     },
     authorDescription: {
       type: String,
-      required: true,
+      // required: true,
     },
     
   },
